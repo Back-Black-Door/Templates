@@ -2,15 +2,15 @@
 //--- 010 Editor v5.0 Binary Template
 //
 //      File: SGM.MSB.bt
-//   Authors: 0xFAIL
-//   Version: 0.8
+//   Authors: 0xFAIL, ImpDi
+//   Version: 0.9
 //   Purpose: Parses the level data models format from levels.gfs, used in Z-Engine (SkullGirls).
 //  Category: Game
 // File Mask: *.sgm.msb
 //  ID Bytes:
 //   History: 
 //   0.8   2014-03-30 0xFAIL: Initial release.
-//
+//   0.9   2025-10-18 ImpDi: Fix bones.
 // Skullgirls level, model file.
 // Array optimisation is broken? has to be disabled when using Pascal64String arrays.
 // uchar4 is a vec4 part?
@@ -50,12 +50,15 @@ struct FILE{
         float yRot <bgcolor=cLtGray,fgcolor=cLtGreen>;
         float zRot <bgcolor=cLtGray,fgcolor=cLtBlue>;
     }model_data;
+    if (nOfBones != 0){
     struct BONE_NAMES{
         Pascal64String boneName[nOfBones] <bgcolor=cYellow,optimize=false>;
     }bone_name;
+    
     struct BONE_PROPERTIES{
         float unknown3[16] <fgcolor=cGray>;
     }bone_properties[nOfBones];
+    }
 }file <read=FILE_read>;
 
 //http://www.intrepid-web.net/010-editor/
